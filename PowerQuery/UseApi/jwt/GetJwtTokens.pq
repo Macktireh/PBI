@@ -1,19 +1,14 @@
 let
-    // Fonction pour obtenir les jetons JWT
+    // Function for obtaining JWT tokens
     GetJwtTokens = () =>
         let
-            // Obtient les en-têtes par défaut
             Headers = GetHeadersParameters(),
-            // Paramètres de requête (vide dans ce cas)
             Quey = [],
-            // Corps de la requête avec les informations d'identification
             Body = [
-                username = "emilys",
-                password = "emilyspass"
+                username = API_LOGIN_USERNAME,
+                password = API_LOGIN_PASSWORD
             ],
-            // Envoie une requête HTTP pour obtenir les jetons JWT
-            Response = HttpClient("auth/login", Quey, Headers, Body),
-            // Extrait les jetons d'accès et de rafraîchissement de la réponse
+            Response = HttpClientPostRequest("auth/login", Quey, Headers, Body),
             JwtTokens = [
                 accessToken = Record.Field(Response, "accessToken"),
                 refreshToken = Record.Field(Response, "refreshToken")
